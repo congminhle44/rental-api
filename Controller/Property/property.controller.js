@@ -35,9 +35,15 @@ const createProperty = (req, res) => {
 
 const editProperty = (req, res) => {
   const { id } = req.params;
-  const obj = req.body;
+  const { name, address } = req.body;
 
-  Property.findByIdAndUpdate(id, obj, { new: true })
+  const payload = {
+    ...req.body,
+    name: removeVietnameseTones(name),
+    address: removeVietnameseTones(address),
+  };
+
+  Property.findByIdAndUpdate(id, payload, { new: true })
     .then(() => res.status(204).json())
     .catch((err) => res.json(err));
 };
