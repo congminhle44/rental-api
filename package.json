@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start":"node .",
     "start:local": "set NODE_ENV=local& nodemon .",
     "start:staging": "set NODE_ENV=staging& node ."
   },
