@@ -20,12 +20,7 @@ mongoose
   .then(() => console.log('Connected to database successfully'))
   .catch(console.log);
 
-app.use(
-  cors({
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, // allow session cookie from browser to pass through
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 
