@@ -1,8 +1,9 @@
 /** @format */
-
-const { Property } = require('../../Models/Property');
+const _ = require('lodash');
 
 const { removeVietnameseTones } = require('../../Helpers');
+
+const { Property } = require('../../Models/Property');
 
 const viewProperties = (req, res) => {
   const { keyword, minPrice, maxPrice } = req.query;
@@ -12,6 +13,20 @@ const viewProperties = (req, res) => {
   })
     .then((property) => {
       res.status(200).json(property);
+    })
+    .catch((err) => res.status(400).json(err));
+};
+
+const viewPropertyDetails = (req, res) => {
+  const { id } = req.params;
+  Property.findById(id)
+    .then((property) => {
+      if (!property)
+        return Promise.reject({
+          message: 'Property not found',
+        });
+      const propertyWithoutNotes = _.omit(property.toJSON(), ['notes', '__v']);
+      res.status(200).json(propertyWithoutNotes);
     })
     .catch((err) => res.status(400).json(err));
 };
@@ -65,4 +80,5 @@ module.exports = {
   createProperty,
   editProperty,
   deleteProperty,
+  viewPropertyDetails,
 };
