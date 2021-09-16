@@ -75,10 +75,28 @@ const deleteProperty = (req, res) => {
     });
 };
 
+const changePropertyThumb = (req, res) => {
+  const { id } = req.params;
+  Property.findById(id)
+    .then((property) => {
+      if (!property)
+        return Promise.reject({
+          message: 'Property does not exist',
+        });
+      property.thumbnail = req.file.path.replace(/\\/g, '/');
+      return property.save();
+    })
+    .then(() => res.status(204).json())
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+};
+
 module.exports = {
   viewProperties,
   createProperty,
   editProperty,
   deleteProperty,
   viewPropertyDetails,
+  changePropertyThumb,
 };
