@@ -10,6 +10,7 @@ module.exports.validateProperty = async (req, res, next) => {
 
   const propertyId = _.get(req, 'params.id', '');
   const name = _.get(req, 'body.name', '');
+  const district = _.get(req, 'body.district', '');
   const address = _.get(req, 'body.address', '');
   const type = _.get(req, 'body.type', '');
   const bedrooms = _.get(req, 'body.bedrooms', '');
@@ -44,6 +45,9 @@ module.exports.validateProperty = async (req, res, next) => {
       if (property)
         errors.message = 'This address was used by another property';
     }
+  }
+  if (validator.isEmpty(district)) {
+    errors.type = 'District is required';
   }
 
   if (validator.isEmpty(type)) {
