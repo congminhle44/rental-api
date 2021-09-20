@@ -14,7 +14,7 @@ const PropertySchema = new mongoose.Schema({
   furnitureType: { type: String },
   notes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Note' }],
   reporter: { type: String, required: true },
-  thumbnail: { type: String, default: '/uploads/thumbs/default-property.jpg' },
+  thumbnail: { type: String, default: 'uploads/thumbs/default-property.jpg' },
 });
 
 const Property = mongoose.model('Property', PropertySchema, 'Property');
